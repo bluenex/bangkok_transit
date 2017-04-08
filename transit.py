@@ -66,7 +66,7 @@ def read_stations(path='data/stations.csv'):
     reader = list(csv.DictReader(open(path)))
     grouper = itemgetter("station_link", "station_thai_name", "station_name")
     stations = []
-    for key, group in groupby(sorted(t, key=grouper), grouper):
+    for key, group in groupby(sorted(reader, key=grouper), grouper):
         temp_dict = dict(zip(["station_link", "station_thai_name", "station_name"], key))
         temp_dict["connecting_lines"] = [item for item in group]
         stations.append(temp_dict)
@@ -76,10 +76,10 @@ def query_station(query, stations):
     """
     Get closest bus or train station for given query
     """
-    stations_enlish = [station['station_name'] for station in stations]
+    stations_english = [station['station_name'] for station in stations]
     stations_thai = [station['station_thai_name'] for station in stations]
     _station = get_close_matches(query , stations_thai, n=1, cutoff=0.6)
-    _station.extend(get_close_matches(query, stations_enlish, n=1, cutoff=0.6))
+    _station.extend(get_close_matches(query, stations_english, n=1, cutoff=0.6))
     query_st = [station for station in stations if (query == station['station_name'] or query in station['station_thai_name'])]
     if query_st is not None:
         query_first = query_st[0]

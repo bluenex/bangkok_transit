@@ -10,7 +10,7 @@ stations = transit.read_stations('data/stations.csv')
 route_descriptions = transit.get_commute_instruction('บางรัก', 'สีลม', stations) # return route instruction
 ```
 
-**Ouput**
+**Output**
 
 ```python
 [{'action': 'Walk by foot to',
